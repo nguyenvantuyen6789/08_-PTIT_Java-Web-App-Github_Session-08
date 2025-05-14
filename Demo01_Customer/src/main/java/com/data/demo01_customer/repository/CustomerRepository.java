@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface CustomerRepository {
     List<Customer> findAll();
+    Customer findById(int id);
+
+    boolean save(Customer customer);
 }

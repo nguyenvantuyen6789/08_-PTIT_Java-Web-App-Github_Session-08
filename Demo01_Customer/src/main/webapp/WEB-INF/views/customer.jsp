@@ -7,6 +7,7 @@
 </head>
 <body>
     <h4>List Customer</h4>
+    <a href="customer-add">Add new customer</a>
     <table border="1">
         <tr>
             <th>ID</th>
@@ -14,6 +15,7 @@
             <th>Email</th>
             <th>Gender</th>
             <th>Customer Type</th>
+            <th></th>
         </tr>
         <c:forEach var="item" items="${customers}">
             <tr>
@@ -22,6 +24,7 @@
                 <td>${item.email}</td>
                 <td>${item.gender}</td>
                 <td>${item.customerType}</td>
+                <td><a href="customer/${item.id}">Detail</a></td>
             </tr>
         </c:forEach>
     </table>
