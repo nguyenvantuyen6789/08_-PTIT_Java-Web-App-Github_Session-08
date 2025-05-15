@@ -17,6 +17,18 @@
             <label for="email">Email</label>
             <input type="text" name="email" id="email" />
         </div>
+
+        <div>
+            Gender
+            <input type="radio" name="gender" value="MALE" /> Male
+            <input type="radio" name="gender" value="FEMALE" /> Female
+        </div>
+
+        <div>
+            Customer Type
+            <input type="radio" name="customerType" value="VIP" /> VIP
+            <input type="radio" name="customerType" value="STANDARD" /> STANDARD
+        </div>
         <div>
             <input type="submit" value="Save" />
         </div>

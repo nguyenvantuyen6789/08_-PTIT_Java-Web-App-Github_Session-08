@@ -16,6 +16,8 @@
             <th>Gender</th>
             <th>Customer Type</th>
             <th></th>
+            <th></th>
+            <th></th>
         </tr>
         <c:forEach var="item" items="${customers}">
             <tr>
@@ -25,6 +27,8 @@
                 <td>${item.gender}</td>
                 <td>${item.customerType}</td>
                 <td><a href="customer/${item.id}">Detail</a></td>
+                <td><a href="customer-delete/${item.id}">Delete</a></td>
+                <td><a href="customer-edit/${item.id}">Edit</a></td>
             </tr>
         </c:forEach>
     </table>

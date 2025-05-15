@@ -9,5 +9,6 @@ public interface CustomerService {
     Customer findById(int id);
 
     boolean save(Customer customer);
+    boolean delete(int id);
 
 }

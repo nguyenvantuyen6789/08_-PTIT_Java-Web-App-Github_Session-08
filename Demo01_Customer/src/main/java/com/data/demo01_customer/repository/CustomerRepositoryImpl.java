@@ -78,9 +78,34 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         boolean result = false;
         try {
             conn = ConnectionDB.openConnection();
-            callSt = conn.prepareCall("{call save_product(?, ?)}");
+            callSt = conn.prepareCall("{call save_customer(?, ?, ?, ?)}");
             callSt.setString(1, customer.getFullName());
             callSt.setString(2, customer.getEmail());
+            callSt.setString(3, customer.getGender());
+            callSt.setString(4, customer.getCustomerType());
+
+            // execute
+            callSt.executeUpdate();
+            result = true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            ConnectionDB.closeConnection(conn);
+        }
+
+        return result;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        Connection conn = null;
+        CallableStatement callSt = null;
+
+        boolean result = false;
+        try {
+            conn = ConnectionDB.openConnection();
+            callSt = conn.prepareCall("{call delete_customer_by_id(?)}");
+            callSt.setInt(1, id);
 
             // execute
             callSt.executeUpdate();

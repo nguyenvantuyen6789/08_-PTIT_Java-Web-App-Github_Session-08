@@ -44,10 +44,14 @@ public class CustomerController {
 
     @PostMapping("customer-save")
     public String save(@RequestParam String fullName,
-                       @RequestParam String email) {
+                       @RequestParam String email,
+                       @RequestParam String gender,
+                       @RequestParam String customerType) {
         Customer customer = new Customer();
         customer.setFullName(fullName);
         customer.setEmail(email);
+        customer.setGender(gender);
+        customer.setCustomerType(customerType);
 
         boolean result = customerService.save(customer);
 
@@ -56,5 +60,28 @@ public class CustomerController {
         } else {
             return "redirect:/customer";
         }
+    }
+
+    @GetMapping("customer-delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        // thực thi xoá customer theo id
+        boolean result = customerService.delete(id);
+
+//        List<Customer> customers = customerService.findAll();
+//        model.addAttribute("customers", customers);
+//        return "customer"; // chuyển về trang customer.jsp
+
+        // khuyến khích
+        // chuyển về path /customer (CustomerController-> /customer)
+        return "redirect:/customer";
+    }
+
+    @GetMapping("customer-edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        Customer customer = customerService.findById(id);
+
+        model.addAttribute("customer", customer);
+
+        return "customer_edit"; // chuyển sang trang customer_edit.jsp
     }
 }
