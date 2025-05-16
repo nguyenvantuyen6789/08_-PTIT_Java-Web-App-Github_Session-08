@@ -23,6 +23,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public List<Customer> search(String fullName, String email) {
+        return customerRepo.search(fullName, email);
+    }
+
+    @Override
     public boolean save(Customer customer) {
         return customerRepo.save(customer);
     }

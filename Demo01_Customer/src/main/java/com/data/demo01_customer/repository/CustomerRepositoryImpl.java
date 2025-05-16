@@ -71,6 +71,38 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
+    public List<Customer> search(String fullName, String email) {
+        Connection conn = null;
+        CallableStatement callSt = null;
+
+        List<Customer> customers = new ArrayList<>();
+        try {
+            conn = ConnectionDB.openConnection();
+            callSt = conn.prepareCall("{call search_customer(?, ?)}");
+            callSt.setString(1, fullName);
+            callSt.setString(2, email);
+
+            ResultSet rs = callSt.executeQuery();
+            while (rs.next()) {
+                Customer customer = new Customer();
+                customer.setId(rs.getInt("id"));
+                customer.setFullName(rs.getString("full_name"));
+                customer.setEmail(rs.getString("email"));
+                customer.setGender(rs.getString("gender"));
+                customer.setCustomerType(rs.getString("customer_type"));
+                // add to list
+                customers.add(customer);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            ConnectionDB.closeConnection(conn);
+        }
+
+        return customers;
+    }
+
+    @Override
     public boolean save(Customer customer) {
         Connection conn = null;
         CallableStatement callSt = null;

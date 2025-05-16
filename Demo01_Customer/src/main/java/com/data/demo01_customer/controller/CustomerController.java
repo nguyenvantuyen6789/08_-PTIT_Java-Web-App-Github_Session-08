@@ -37,6 +37,20 @@ public class CustomerController {
         return "customer_detail"; // file customer_detail.jsp
     }
 
+    @GetMapping("search")
+    public String search(@RequestParam(required = false) String fullName,
+                         @RequestParam(required = false) String email,
+                         Model model) {
+        List<Customer> customers;
+        if ((fullName == null || fullName.isEmpty()) && email == null || email.isEmpty()) {
+            customers = customerService.findAll();
+        } else {
+            customers = customerService.search(fullName, email);
+        }
+        model.addAttribute("customers", customers);
+        return "customer";
+    }
+
     @GetMapping("customer-add")
     public String add() {
         return "customer_add"; // file customer_add.jsp
